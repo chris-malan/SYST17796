@@ -20,11 +20,11 @@ public class ApproveBooking {
 
     public static void displayApproveBookings() {
         if (loggedInAgentName == null) {
-            JOptionPane.showMessageDialog(null, "Agent name not set. Please log in as an agent.");
+            JOptionPane.showMessageDialog(null, "Agent name not set. Please log in as an agent."); // Alert if no agent is logged in
             return;
         }
 
-        JFrame frame = new JFrame("Approve Bookings for " + loggedInAgentName);
+        JFrame frame = new JFrame("Approve Bookings for " + loggedInAgentName); // Window title includes agent's name
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
@@ -32,33 +32,33 @@ public class ApproveBooking {
         BookingTableModel tableModel = new BookingTableModel(DataStoreBooking.getPendingBookingsByAgent(loggedInAgentName));
         JTable table = new JTable(tableModel);
 
-        setTableFormatting(table);
+        setTableFormatting(table); // Format table columns and rows
 
-        table.getColumn("Action").setCellRenderer(new ButtonRenderer());
+        table.getColumn("Action").setCellRenderer(new ButtonRenderer()); // Add "Approve" button
         table.getColumn("Action").setCellEditor(new ButtonEditor(new JCheckBox(), tableModel, table));
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table); // Add scrollable table to frame
         frame.add(scrollPane, BorderLayout.CENTER);
 
         frame.setSize(800, 400);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame.setLocationRelativeTo(null); // Center window
+        frame.setVisible(true); // Show the frame
     }
 
     // Method to set table formatting for uniform column width and alignment
     private static void setTableFormatting(JTable table) {
         int[] columnWidths = {40, 150, 100, 100, 120, 100, 80};
         for (int i = 0; i < columnWidths.length; i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+            table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]); // Set column widths
         }
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Center align text
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        table.setRowHeight(30); // Set row height for better visibility of the Approve button
+        table.setRowHeight(30); // Set row height for better button visibility
     }
 
     // Custom TableModel for Booking data
@@ -69,43 +69,37 @@ public class ApproveBooking {
         private final List<Booking> bookings;
 
         public BookingTableModel(List<Booking> bookings) {
-            this.bookings = bookings;
+            this.bookings = bookings; // Initialize bookings list
         }
 
         @Override
         public int getRowCount() {
-            return bookings.size();
+            return bookings.size(); // Return the number of bookings
         }
 
         @Override
         public int getColumnCount() {
-            return columns.length;
+            return columns.length; // Return the number of columns
         }
 
         @Override
         public String getColumnName(int columnIndex) {
-            return columns[columnIndex];
+            return columns[columnIndex]; // Return the name of the column
         }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Booking booking = bookings.get(rowIndex);
             switch (columnIndex) {
-                case 0: return booking.getId();
-                case 1: return booking.getFirstName() + " " + booking.getLastName();
-                case 2: return booking.getDate();
-                case 3: return booking.getTime();
-                case 4: return booking.getAgentName();
+                case 0: return booking.getId(); // Booking ID
+                case 1: return booking.getFirstName() + " " + booking.getLastName(); // Customer name
+                case 2: return booking.getDate(); // Booking date
+                case 3: return booking.getTime(); // Booking time
+                case 4: return booking.getAgentName(); // Agent name
                 case 5: // Fetch user type from DataStoreUser or Booking data
                     User user = DataStoreUser.findUserByUsername(booking.getUsername());
-                    if (user != null) {
-                        System.out.println("User found: " + user.getUsername() + ", Role: " + user.getRole()); // Debug output
-                        return user.getRole() != null ? user.getRole().toString() : "Unknown";
-                    } else {
-                        System.out.println("User not found for username: " + booking.getUsername()); // Debug output
-                        return "Unknown";
-                    }
-                case 6: return "Approve";
+                    return user != null && user.getRole() != null ? user.getRole().toString() : "Unknown";
+                case 6: return "Approve"; // Action column
                 default: return "N/A";
             }
         }
@@ -118,8 +112,8 @@ public class ApproveBooking {
         public void approveBooking(int rowIndex) {
             Booking booking = bookings.get(rowIndex);
             DataStoreBooking.approveBooking(booking); // Set booking as approved
-            bookings.remove(rowIndex); // Remove the approved booking from the list
-            fireTableRowsDeleted(rowIndex, rowIndex); // Refresh table
+            bookings.remove(rowIndex); // Remove approved booking from the list
+            fireTableRowsDeleted(rowIndex, rowIndex); // Refresh table display
         }
     }
 
@@ -127,9 +121,9 @@ public class ApproveBooking {
     static class ButtonRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-            JButton button = new JButton("Approve");
-            button.setBackground(new Color(76, 175, 80));
-            button.setForeground(Color.WHITE);
+            JButton button = new JButton("Approve"); // Button text
+            button.setBackground(new Color(76, 175, 80)); // Green background
+            button.setForeground(Color.WHITE); // White text
             return button;
         }
     }
@@ -147,22 +141,22 @@ public class ApproveBooking {
             button = new JButton("Approve");
             button.setBackground(new Color(76, 175, 80));
             button.setForeground(Color.WHITE);
-            button.addActionListener(e -> approveAction());
+            button.addActionListener(e -> approveAction()); // Add action listener for approval
         }
 
         private void approveAction() {
-            int row = table.getEditingRow();
-            tableModel.approveBooking(row);
+            int row = table.getEditingRow(); // Get selected row
+            tableModel.approveBooking(row); // Approve booking for that row
         }
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            return button;
+            return button; // Return button as editor
         }
 
         @Override
         public Object getCellEditorValue() {
-            return "Approve";
+            return "Approve"; // Return button value
         }
     }
 }

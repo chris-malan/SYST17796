@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
@@ -8,11 +8,11 @@ import malanc.realestateapp.LogInPrompt.LogIn;
 
 /**
  *
- * @author Chistan M
+ * @author Christian M
  */
 public class RealEstateApp {
 
     public static void main(String[] args) {
-        LogIn.startLogin();
+        LogIn.startLogin(); // Starts the login process when the app runs
     }
 }

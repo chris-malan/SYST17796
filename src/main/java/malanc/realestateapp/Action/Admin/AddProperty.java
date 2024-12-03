@@ -10,6 +10,7 @@ import malanc.realestateapp.Models.PropertyType;
 public class AddProperty {
 
     public static void addProperty() {
+        // Create fields for property details with placeholders
         JTextField nameField = createPlaceholderTextField("e.g., Maple Villa");
         JTextField addressField = createPlaceholderTextField("e.g., 123 Maple St");
         JComboBox<City> cityBox = new JComboBox<>(City.values());
@@ -27,8 +28,9 @@ public class AddProperty {
         JTextField safetyRatingField = createPlaceholderTextField("e.g., High");
         JTextField propertyTaxRateField = createPlaceholderTextField("e.g., 1.2");
         JTextField schoolDistrictField = createPlaceholderTextField("e.g., Peel District");
-        JTextField ownerNameField = createPlaceholderTextField("e.g., John Doe"); // New owner name field
+        JTextField ownerNameField = createPlaceholderTextField("e.g., John Doe"); // Field for owner's name
 
+        // Create and set up the panel for the input form
         JPanel panel = new JPanel(new GridLayout(19, 2, 5, 5));
         panel.add(new JLabel("Name:"));
         panel.add(nameField);
@@ -64,16 +66,17 @@ public class AddProperty {
         panel.add(propertyTaxRateField);
         panel.add(new JLabel("School District:"));
         panel.add(schoolDistrictField);
-        panel.add(new JLabel("Owner Name:")); // Adding owner name label
+        panel.add(new JLabel("Owner Name:")); // Label for owner's name
         panel.add(ownerNameField);
 
+        // Show the input form in a dialog
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Property", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            // Check if required fields are filled
+            // Get and validate required fields
             String name = nameField.getText().trim();
             String address = addressField.getText().trim();
             City city = (City) cityBox.getSelectedItem();
-            String ownerName = ownerNameField.getText().trim(); // Get owner name input
+            String ownerName = ownerNameField.getText().trim(); // Get owner's name
 
             if (name.isEmpty() || address.isEmpty() || city == null || ownerName.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill in the required fields: Name, Address, City, and Owner Name.");
@@ -81,7 +84,7 @@ public class AddProperty {
             }
 
             try {
-                // Optional fields
+                // Parse optional fields and create a new property
                 int floors = floorsField.getText().isEmpty() ? 0 : Integer.parseInt(floorsField.getText().trim());
                 int rooms = roomsField.getText().isEmpty() ? 0 : Integer.parseInt(roomsField.getText().trim());
                 int bathrooms = bathroomsField.getText().isEmpty() ? 0 : Integer.parseInt(bathroomsField.getText().trim());
@@ -98,12 +101,13 @@ public class AddProperty {
                 String schoolDistrict = schoolDistrictField.getText();
 
                 Property property = new Property(
-                        DataStoreProperty.getNextId(), // Assuming getNextId() generates a unique ID
+                        DataStoreProperty.getNextId(), // Generate a unique property ID
                         name, address, city, floors, rooms, bathrooms, type,
                         squareFootage, yearBuilt, price, energyEfficient, hoaFees, petFriendly,
-                        proximityToAmenities, safetyRating, propertyTaxRate, schoolDistrict, ownerName // Pass ownerName here
+                        proximityToAmenities, safetyRating, propertyTaxRate, schoolDistrict, ownerName // Include owner's name
                 );
 
+                // Save the property to the data store
                 DataStoreProperty.addProperty(property);
                 JOptionPane.showMessageDialog(null, "Property added successfully!");
 
@@ -113,6 +117,7 @@ public class AddProperty {
         }
     }
 
+    // Helper method to create a text field with a placeholder
     private static JTextField createPlaceholderTextField(String placeholder) {
         JTextField textField = new JTextField(placeholder);
         textField.setForeground(Color.GRAY);

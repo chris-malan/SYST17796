@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import malanc.realestateapp.DataStore.DataStoreUser;
-import malanc.realestateapp.DataStore.DataStoreUser;
 import malanc.realestateapp.Models.User;
 
 public class DisplayUsers {
 
     public static void displayAllUsers() {
-        List<User> users = DataStoreUser.getAllUsers();
+        List<User> users = DataStoreUser.getAllUsers(); // Get the list of all users
 
         // Build HTML table for displaying users
         StringBuilder htmlContent = new StringBuilder("<html><body><h2>All Users:</h2>");
@@ -44,11 +43,11 @@ public class DisplayUsers {
         JTextPane textPane = new JTextPane();
         textPane.setContentType("text/html");
         textPane.setText(htmlContent.toString());
-        textPane.setEditable(false);
+        textPane.setEditable(false); // Make the text pane read-only
 
         // Create a JScrollPane to allow scrolling if content is too long
         JScrollPane scrollPane = new JScrollPane(textPane);
-        scrollPane.setPreferredSize(new Dimension(600, 400));
+        scrollPane.setPreferredSize(new Dimension(600, 400)); // Set scroll pane size
 
         // Display in a JOptionPane
         JOptionPane.showMessageDialog(null, scrollPane, "All Users", JOptionPane.INFORMATION_MESSAGE);

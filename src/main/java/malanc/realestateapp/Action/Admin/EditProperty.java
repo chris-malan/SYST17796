@@ -13,18 +13,19 @@ public class EditProperty {
 
     public static void editProperty() {
         // Step 1: Display all properties using DisplayProperties class
-        DisplayProperties.displayAllProperties(UserRole.ADMIN);
+        DisplayProperties.displayAllProperties(UserRole.ADMIN); // Show properties for admin to choose from
 
         // Step 2: Prompt the user for the ID of the property to edit
         String idStr = JOptionPane.showInputDialog("Enter the ID of the property to edit:");
-        if (idStr == null || idStr.isEmpty()) return;
+        if (idStr == null || idStr.isEmpty()) return; // Exit if no ID is provided
 
         int propertyId = Integer.parseInt(idStr);
-        Property propertyToEdit = DataStoreProperty.findPropertyById(propertyId);
+        Property propertyToEdit = DataStoreProperty.findPropertyById(propertyId); // Find the property by ID
 
         if (propertyToEdit != null) {
-            JPanel panel = new JPanel(new GridLayout(16, 2, 5, 5));
+            JPanel panel = new JPanel(new GridLayout(16, 2, 5, 5)); // Create a grid layout for the input form
 
+            // Pre-fill fields with existing property data
             JTextField nameField = new JTextField(propertyToEdit.getName());
             JTextField addressField = new JTextField(propertyToEdit.getAddress());
             JComboBox<City> cityBox = new JComboBox<>(City.values());
@@ -44,6 +45,7 @@ public class EditProperty {
             JTextField safetyRatingField = new JTextField(propertyToEdit.getSafetyRating());
             JTextField schoolDistrictField = new JTextField(propertyToEdit.getSchoolDistrict());
 
+            // Add fields to the panel
             panel.add(new JLabel("Name:"));
             panel.add(nameField);
             panel.add(new JLabel("Address:"));
@@ -77,9 +79,11 @@ public class EditProperty {
             panel.add(new JLabel("School District:"));
             panel.add(schoolDistrictField);
 
+            // Add the panel to a scrollable pane for better visibility
             JScrollPane scrollPane = new JScrollPane(panel);
             scrollPane.setPreferredSize(new Dimension(400, 600));
 
+            // Show dialog to edit the property
             int result = JOptionPane.showConfirmDialog(null, scrollPane, "Edit Property", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (result == JOptionPane.OK_OPTION) {
                 // Update property details based on user input
@@ -100,10 +104,10 @@ public class EditProperty {
                 propertyToEdit.setSafetyRating(safetyRatingField.getText());
                 propertyToEdit.setSchoolDistrict(schoolDistrictField.getText());
 
-                JOptionPane.showMessageDialog(null, "Property updated successfully!");
+                JOptionPane.showMessageDialog(null, "Property updated successfully!"); // Confirmation message
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Property with ID " + propertyId + " not found.");
+            JOptionPane.showMessageDialog(null, "Property with ID " + propertyId + " not found."); // Error message if property not found
         }
     }
 }

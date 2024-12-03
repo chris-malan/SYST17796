@@ -39,6 +39,7 @@ public class ApprovePendingProperties {
 
     // Method to set column widths and alignment
     private static void setTableFormatting(JTable table) {
+        // Set preferred column widths for better display
         int[] columnWidths = {40, 120, 150, 100, 120, 60, 60, 80, 100, 120, 100, 100, 80, 80, 100, 150, 100, 100, 120, 100};
         for (int i = 0; i < columnWidths.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
@@ -62,27 +63,29 @@ public class ApprovePendingProperties {
         private final java.util.List<Property> properties;
 
         public PropertyTableModel() {
+            // Load pending properties from the data store
             this.properties = DataStoreProperty.getPendingProperties();
         }
 
         @Override
         public int getRowCount() {
-            return properties.size();
+            return properties.size(); // Return the number of pending properties
         }
 
         @Override
         public int getColumnCount() {
-            return columns.length;
+            return columns.length; // Return the number of columns
         }
 
         @Override
         public String getColumnName(int columnIndex) {
-            return columns[columnIndex];
+            return columns[columnIndex]; // Get the name of the column
         }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Property property = properties.get(rowIndex);
+            // Return property details for each column
             switch (columnIndex) {
                 case 0: return property.getId();
                 case 1: return property.getName() != null ? property.getName() : "N/A";
@@ -103,7 +106,7 @@ public class ApprovePendingProperties {
                 case 16: return property.getSafetyRating() != null ? property.getSafetyRating() : "N/A";
                 case 17: return property.getPropertyTaxRate() != 0 ? property.getPropertyTaxRate() : "N/A";
                 case 18: return property.getSchoolDistrict() != null ? property.getSchoolDistrict() : "N/A";
-                case 19: return "Approve / Decline";
+                case 19: return "Approve / Decline"; // Placeholder for action buttons
                 default: return "N/A";
             }
         }
@@ -114,33 +117,29 @@ public class ApprovePendingProperties {
         }
 
         public void approveProperty(int rowIndex) {
+            // Approve the property and add it to the main list
             Property property = properties.get(rowIndex);
-
-            // Generate a unique ID for the approved property if necessary
-            int newId = generateUniqueId();
+            int newId = generateUniqueId(); // Assign a unique ID
             property.setId(newId);
-
-            // Remove from pending list and add to main properties list
             DataStoreProperty.getPendingProperties().remove(property); // Remove from pending list
-            DataStoreProperty.addProperty(property); // Add to main properties list with unique ID
-
-            fireTableRowsDeleted(rowIndex, rowIndex); // Refresh table display
+            DataStoreProperty.addProperty(property); // Add to approved list
+            fireTableRowsDeleted(rowIndex, rowIndex); // Update table
         }
 
         public void declineProperty(int rowIndex) {
-            properties.remove(rowIndex); // Just remove from pending list without approval
-            fireTableRowsDeleted(rowIndex, rowIndex);
+            properties.remove(rowIndex); // Remove property from pending list
+            fireTableRowsDeleted(rowIndex, rowIndex); // Update table
         }
 
-        // Method to generate a unique ID
         private int generateUniqueId() {
+            // Generate a unique ID for a property
             int maxId = 0;
-            for (Property prop : DataStoreProperty.getProperties()) { // Assuming getProperties() returns the main list
+            for (Property prop : DataStoreProperty.getProperties()) {
                 if (prop.getId() > maxId) {
                     maxId = prop.getId();
                 }
             }
-            return maxId + 1; // Increment to get a unique ID
+            return maxId + 1; // Increment ID
         }
     }
 
@@ -148,6 +147,7 @@ public class ApprovePendingProperties {
     static class ButtonRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+            // Create approve and decline buttons for each row
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
             JButton approveButton = new JButton("Approve");
             JButton declineButton = new JButton("Decline");
@@ -179,7 +179,7 @@ public class ApprovePendingProperties {
             declineButton.setBackground(new Color(220, 53, 69));
             declineButton.setForeground(Color.WHITE);
 
-            // Add action listeners
+            // Add action listeners for buttons
             approveButton.addActionListener(e -> approveAction());
             declineButton.addActionListener(e -> declineAction());
 
@@ -188,23 +188,25 @@ public class ApprovePendingProperties {
         }
 
         private void approveAction() {
+            // Approve the selected property
             int row = table.getEditingRow();
             tableModel.approveProperty(row);
         }
 
         private void declineAction() {
+            // Decline the selected property
             int row = table.getEditingRow();
             tableModel.declineProperty(row);
         }
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            return panel;
+            return panel; // Return the panel with buttons
         }
 
         @Override
         public Object getCellEditorValue() {
-            return "";
+            return ""; // No actual value needed
         }
     }
 }

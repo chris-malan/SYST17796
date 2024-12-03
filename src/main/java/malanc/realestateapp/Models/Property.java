@@ -47,158 +47,44 @@ public class Property {
     }
 
     // Getters and Setters
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public int getFloors() {
-        return floors;
-    }
-
-    public void setFloors(int floors) {
-        this.floors = floors;
-    }
-
-    public int getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(int rooms) {
-        this.rooms = rooms;
-    }
-
-    public int getBathrooms() {
-        return bathrooms;
-    }
-
-    public void setBathrooms(int bathrooms) {
-        this.bathrooms = bathrooms;
-    }
-
-    public PropertyType getType() {
-        return type;
-    }
-
-    public void setType(PropertyType type) {
-        this.type = type;
-    }
-
-    public int getSquareFootage() {
-        return squareFootage;
-    }
-
-    public void setSquareFootage(int squareFootage) {
-        this.squareFootage = squareFootage;
-    }
-
-    public int getYearBuilt() {
-        return yearBuilt;
-    }
-
-    public void setYearBuilt(int yearBuilt) {
-        this.yearBuilt = yearBuilt;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public boolean isEnergyEfficient() {
-        return energyEfficient;
-    }
-
-    public void setEnergyEfficient(boolean energyEfficient) {
-        this.energyEfficient = energyEfficient;
-    }
-
-    public boolean hasHoaFees() {
-        return hoaFees;
-    }
-
-    public void setHoaFees(boolean hoaFees) {
-        this.hoaFees = hoaFees;
-    }
-
-    public boolean isPetFriendly() {
-        return petFriendly;
-    }
-
-    public void setPetFriendly(boolean petFriendly) {
-        this.petFriendly = petFriendly;
-    }
-
-    public String getProximityToAmenities() {
-        return proximityToAmenities;
-    }
-
-    public void setProximityToAmenities(String proximityToAmenities) {
-        this.proximityToAmenities = proximityToAmenities;
-    }
-
-    public String getSafetyRating() {
-        return safetyRating;
-    }
-
-    public void setSafetyRating(String safetyRating) {
-        this.safetyRating = safetyRating;
-    }
-
-    public double getPropertyTaxRate() {
-        return propertyTaxRate;
-    }
-
-    public void setPropertyTaxRate(double propertyTaxRate) {
-        this.propertyTaxRate = propertyTaxRate;
-    }
-
-    public String getSchoolDistrict() {
-        return schoolDistrict;
-    }
-
-    public void setSchoolDistrict(String schoolDistrict) {
-        this.schoolDistrict = schoolDistrict;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+    public City getCity() { return city; }
+    public void setCity(City city) { this.city = city; }
+    public int getFloors() { return floors; }
+    public void setFloors(int floors) { this.floors = floors; }
+    public int getRooms() { return rooms; }
+    public void setRooms(int rooms) { this.rooms = rooms; }
+    public int getBathrooms() { return bathrooms; }
+    public void setBathrooms(int bathrooms) { this.bathrooms = bathrooms; }
+    public PropertyType getType() { return type; }
+    public void setType(PropertyType type) { this.type = type; }
+    public int getSquareFootage() { return squareFootage; }
+    public void setSquareFootage(int squareFootage) { this.squareFootage = squareFootage; }
+    public int getYearBuilt() { return yearBuilt; }
+    public void setYearBuilt(int yearBuilt) { this.yearBuilt = yearBuilt; }
+    public int getPrice() { return price; }
+    public void setPrice(int price) { this.price = price; }
+    public boolean isEnergyEfficient() { return energyEfficient; }
+    public void setEnergyEfficient(boolean energyEfficient) { this.energyEfficient = energyEfficient; }
+    public boolean hasHoaFees() { return hoaFees; }
+    public void setHoaFees(boolean hoaFees) { this.hoaFees = hoaFees; }
+    public boolean isPetFriendly() { return petFriendly; }
+    public void setPetFriendly(boolean petFriendly) { this.petFriendly = petFriendly; }
+    public String getProximityToAmenities() { return proximityToAmenities; }
+    public void setProximityToAmenities(String proximityToAmenities) { this.proximityToAmenities = proximityToAmenities; }
+    public String getSafetyRating() { return safetyRating; }
+    public void setSafetyRating(String safetyRating) { this.safetyRating = safetyRating; }
+    public double getPropertyTaxRate() { return propertyTaxRate; }
+    public void setPropertyTaxRate(double propertyTaxRate) { this.propertyTaxRate = propertyTaxRate; }
+    public String getSchoolDistrict() { return schoolDistrict; }
+    public void setSchoolDistrict(String schoolDistrict) { this.schoolDistrict = schoolDistrict; }
+    public String getOwnerName() { return ownerName; }
+    public void setOwnerName(String ownerName) { this.ownerName = ownerName; }
 
     @Override
     public String toString() {
@@ -221,7 +107,7 @@ public class Property {
                 ", safetyRating='" + safetyRating + '\'' +
                 ", propertyTaxRate=" + propertyTaxRate +
                 ", schoolDistrict='" + schoolDistrict + '\'' +
-                ", ownerName='" + ownerName + '\'' + // Include ownerName in the toString method
+                ", ownerName='" + ownerName + '\'' +
                 '}';
     }
 }

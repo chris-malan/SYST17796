@@ -5,8 +5,10 @@
 package malanc.realestateapp.Models;
 
 /**
- *
- * @author Christan M
+ * Enum representing different types of properties available in the real estate app.
+ * This is used for filtering and categorizing properties.
+ * 
+ * @author Christian M
  */
 public enum PropertyType {
     ANY,SINGLE_FAMILY, CONDO, TOWNHOUSE, APARTMENT

@@ -5,9 +5,11 @@
 package malanc.realestateapp.Models;
 
 /**
- *
- * @author Chistan M
+ * Enum representing cities available in the real estate app.
+ * Used for property location filtering and selection.
+ * 
+ * @author Christian M
  */
 public enum City {
-    ANY,BRAMPTON, MISSISSAUGA, TORONTO
+    ANY, BRAMPTON, MISSISSAUGA, TORONTO
 }

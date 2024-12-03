@@ -10,25 +10,25 @@ public class RemoveProperty {
 
     public static void removeProperty() {
         // Display all properties before selection
-        DisplayProperties.displayAllProperties(UserRole.ADMIN);
+        DisplayProperties.displayAllProperties(UserRole.ADMIN); // Show all properties for admin
 
         // Prompt for property ID to remove
         String idStr = JOptionPane.showInputDialog("Enter the ID of the property to remove:");
-        if (idStr == null || idStr.trim().isEmpty()) return;
+        if (idStr == null || idStr.trim().isEmpty()) return; // Exit if no input is provided
 
         int propertyId;
         try {
-            propertyId = Integer.parseInt(idStr.trim()); // Trim whitespace before parsing
+            propertyId = Integer.parseInt(idStr.trim()); // Parse input as an integer
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please enter a valid numeric ID.");
+            JOptionPane.showMessageDialog(null, "Please enter a valid numeric ID."); // Show error for invalid input
             return;
         }
 
-        Property propertyToRemove = DataStoreProperty.findPropertyById(propertyId);
+        Property propertyToRemove = DataStoreProperty.findPropertyById(propertyId); // Find the property by ID
 
         if (propertyToRemove != null) {
             // Confirm removal
-            String propertyDetails = getPropertyDetails(propertyToRemove);
+            String propertyDetails = getPropertyDetails(propertyToRemove); // Get property details for confirmation
             int confirm = JOptionPane.showConfirmDialog(null,
                     "<html><body><h3>Are you sure you want to remove the property?</h3><br>" + propertyDetails + "</body></html>",
                     "Confirm Removal",
@@ -36,18 +36,19 @@ public class RemoveProperty {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Remove property from the list
-                DataStoreProperty.properties.remove(propertyToRemove);
-                JOptionPane.showMessageDialog(null, "Property removed successfully!");
+                DataStoreProperty.properties.remove(propertyToRemove); // Remove from data store
+                JOptionPane.showMessageDialog(null, "Property removed successfully!"); // Show success message
 
                 // Refresh the display to show updated properties list
                 DisplayProperties.displayAllProperties(UserRole.ADMIN);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Property with ID " + propertyId + " not found.");
+            JOptionPane.showMessageDialog(null, "Property with ID " + propertyId + " not found."); // Error if property not found
         }
     }
 
     private static String getPropertyDetails(Property property) {
+        // Format property details for confirmation
         return "<html><body style='width: 250px;'>" +
                 "<b>ID:</b> " + property.getId() + "<br>" +
                 "<b>Name:</b> " + property.getName() + "<br>" +
